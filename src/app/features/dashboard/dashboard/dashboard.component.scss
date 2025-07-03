@@ -1,0 +1,43 @@
+.dashboard-container {
+  text-align: center;
+  padding: 2rem;
+
+  h1 {
+    margin-bottom: 0.5rem;
+    font-size: 2rem;
+    color: #1976d2;
+  }
+
+  p {
+    color: #607d8b;
+    margin-bottom: 2rem;
+  }
+
+  .cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+
+    .dashboard-card {
+      width: 200px;
+      padding: 1rem;
+      text-align: center;
+
+      mat-icon {
+        font-size: 40px;
+        color: #1976d2;
+      }
+
+      h2 {
+        margin: 0.5rem 0;
+        font-size: 1.8rem;
+      }
+
+      p {
+        margin: 0;
+        color: #546e7a;
+      }
+    }
+  }
+}

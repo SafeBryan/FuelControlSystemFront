@@ -1,0 +1,39 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav mode="side" opened class="sidenav">
+    <app-menu [listMenu]="menuList"></app-menu>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <span>FuelControlSystem</span>
+      <span class="spacer"></span>
+
+      <button
+        mat-icon-button
+        [matMenuTriggerFor]="userMenu"
+        class="user-button"
+      >
+        <mat-icon>account_circle</mat-icon>
+      </button>
+
+      <mat-menu #userMenu="matMenu">
+        <div class="user-info">
+          <mat-icon>account_circle</mat-icon>
+          <div>
+            <div class="username">{{ username }}</div>
+            <div class="role">{{ role }}</div>
+          </div>
+        </div>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          <span>Cerrar sesión</span>
+        </button>
+      </mat-menu>
+    </mat-toolbar>
+
+    <!-- Contenido dinámico -->
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

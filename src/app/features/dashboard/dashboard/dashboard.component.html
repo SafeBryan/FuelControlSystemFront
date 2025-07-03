@@ -1,0 +1,30 @@
+<div class="dashboard-container">
+  <h1>Bienvenido a FuelControlSystem</h1>
+  <p>Control eficiente de combustible y flotas.</p>
+
+  <div class="cards-container">
+    <mat-card class="dashboard-card">
+      <mat-icon>local_shipping</mat-icon>
+      <h2>{{ totalVehicles }}</h2>
+      <p>Vehículos Registrados</p>
+    </mat-card>
+
+    <mat-card class="dashboard-card">
+      <mat-icon>person</mat-icon>
+      <h2>{{ totalDrivers }}</h2>
+      <p>Conductores Activos</p>
+    </mat-card>
+
+    <mat-card class="dashboard-card">
+      <mat-icon>local_gas_station</mat-icon>
+      <h2>{{ fuelConsumptionToday }} L</h2>
+      <p>Consumo Hoy</p>
+    </mat-card>
+
+    <mat-card class="dashboard-card">
+      <mat-icon>alt_route</mat-icon>
+      <h2>{{ activeRoutes }}</h2>
+      <p>Rutas Activas</p>
+    </mat-card>
+  </div>
+</div>

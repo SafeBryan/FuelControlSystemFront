@@ -1,0 +1,47 @@
+.sidenav-container {
+  height: 100vh;
+}
+
+.sidenav {
+  width: 220px;
+}
+
+.content {
+  padding: 1rem;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+}
+
+.user-info mat-icon {
+  margin-right: 0.5rem;
+}
+
+.username {
+  font-weight: 600;
+}
+
+.role {
+  font-size: 0.85rem;
+  color: #888;
+}
+
+.user-button {
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 50%;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08); // hover sutil
+  }
+}
+.user-button mat-icon {
+  color: white !important; // fuerza blanco
+}

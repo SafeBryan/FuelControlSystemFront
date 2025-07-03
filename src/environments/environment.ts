@@ -1,4 +1,6 @@
 export const environment = {
   production: false,
-  apiUrl: 'https://localhost:7214', // URL de nuestro AuthService en desarrollo
+  authApiUrl: 'https://localhost:7214',
+  vehicleApiUrl: 'https://localhost:7205', 
+
 };

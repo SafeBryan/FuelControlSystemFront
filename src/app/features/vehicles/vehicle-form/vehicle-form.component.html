@@ -1,0 +1,62 @@
+<h2 mat-dialog-title>
+  {{ data.vehicle ? "Editar Vehículo" : "Agregar Vehículo" }}
+</h2>
+
+<form [formGroup]="vehicleForm" (ngSubmit)="save()" mat-dialog-content>
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Placa</mat-label>
+    <input matInput formControlName="plateNumber" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Tipo</mat-label>
+    <input matInput formControlName="type" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Tipo de Combustible</mat-label>
+    <input matInput formControlName="fuelType" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Eficiencia de Combustible (km/l)</mat-label>
+    <input matInput type="number" formControlName="fuelEfficiency" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Marca</mat-label>
+    <input matInput formControlName="brand" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Modelo</mat-label>
+    <input matInput formControlName="model" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Fecha de Adquisición</mat-label>
+    <input matInput type="date" formControlName="acquisitionDate" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Precio de Compra</mat-label>
+    <input matInput type="number" formControlName="purchasePrice" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Número de Documento</mat-label>
+    <input matInput formControlName="documentNumber" />
+  </mat-form-field>
+</form>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Cancelar</button>
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="vehicleForm.invalid"
+    (click)="save()"
+  >
+    Guardar
+  </button>
+</mat-dialog-actions>

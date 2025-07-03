@@ -19,7 +19,7 @@ export interface AuthResponse {
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = `${environment.apiUrl}/api/auth`;
+  private apiUrl = `${environment.authApiUrl}/api/auth`;
 
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService) {}
 

@@ -21,7 +21,13 @@ export const routes: Routes = [
           import('./features/vehicles/vehicles.component').then(
             (m) => m.VehiclesComponent
           ),
-        canActivate: [authGuard],
+      },
+      {
+        path: 'vehicle-maintenance',
+        loadComponent: () =>
+          import(
+            './features/vehicles/vehicle-maintenance/vehicle-maintenance.component'
+          ).then((m) => m.VehicleMaintenanceComponent),
       },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],

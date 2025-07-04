@@ -1,7 +1,7 @@
 import {
   ApplicationConfig,
   provideZoneChangeDetection,
-  inject,
+  importProvidersFrom,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
@@ -16,7 +16,7 @@ import {
 } from '@angular/common/http';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
-import { AuthService } from './core/services/auth.service';
+import { MatNativeDateModule } from '@angular/material/core'; // ✅ Import necesario para el DateAdapter
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -24,6 +24,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
     provideHttpClient(withFetch()),
+    importProvidersFrom(MatNativeDateModule), // ✅ Provee DateAdapter globalmente
     { provide: JWT_OPTIONS, useValue: {} },
     JwtHelperService,
     {

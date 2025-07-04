@@ -13,7 +13,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { VehicleFormComponent } from '../vehicles/vehicle-form/vehicle-form.component';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatConfirmDialogComponent } from '../../shared/mat-confirm-dialog/mat-confirm-dialog.component'; // Si usas un confirm dialog
+import { MatConfirmDialogComponent } from '../../shared/mat-confirm-dialog/mat-confirm-dialog.component';
+
 
 @Component({
   selector: 'app-vehicles',
@@ -45,7 +46,7 @@ export class VehiclesComponent implements OnInit {
     'model',
     'acquisitionDate',
     'isUnderMaintenance',
-    'actions', // ✅ nueva columna
+    'actions',
   ];
 
   vehicles: Vehicle[] = [];
@@ -137,22 +138,30 @@ export class VehiclesComponent implements OnInit {
   }
 
   deleteVehicle(vehicle: Vehicle) {
-    if (
-      confirm(`¿Estás seguro de eliminar el vehículo ${vehicle.plateNumber}?`)
-    ) {
-      this.vehicleService.deleteVehicle(vehicle.id).subscribe({
-        next: () => {
-          this.snackBar.open('Vehículo eliminado correctamente', 'Cerrar', {
-            duration: 3000,
-          });
-          this.loadVehicles();
-        },
-        error: () => {
-          this.snackBar.open('Error al eliminar vehículo', 'Cerrar', {
-            duration: 3000,
-          });
-        },
-      });
-    }
+    const dialogRef = this.dialog.open(MatConfirmDialogComponent, {
+      width: '350px',
+      data: {
+        title: 'Confirmar eliminación',
+        message: `¿Estás seguro de eliminar el vehículo ${vehicle.plateNumber}?`,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.vehicleService.deleteVehicle(vehicle.id).subscribe({
+          next: () => {
+            this.snackBar.open('Vehículo eliminado correctamente', 'Cerrar', {
+              duration: 3000,
+            });
+            this.loadVehicles();
+          },
+          error: () => {
+            this.snackBar.open('Error al eliminar vehículo', 'Cerrar', {
+              duration: 3000,
+            });
+          },
+        });
+      }
+    });
   }
 }

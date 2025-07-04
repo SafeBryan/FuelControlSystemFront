@@ -14,6 +14,8 @@ export class MenuService {
   private adminMenu: IMenu[] = [
     { title: 'Dashboard', url: '/dashboard', icon: 'dashboard' },
     { title: 'Vehículos', url: '/vehicles', icon: 'local_shipping' },
+    { title: 'Usuarios', url: '/users', icon: 'group' },
+    { title: 'Mantenimientos', url: '/vehicle-maintenance', icon: 'build' },
     { title: 'Conductores', url: '/drivers', icon: 'person' },
     { title: 'Rutas', url: '/routes', icon: 'alt_route' },
     {
@@ -42,8 +44,9 @@ export class MenuService {
   private supervisorMenu: IMenu[] = [
     { title: 'Dashboard', url: '/dashboard', icon: 'dashboard' },
     { title: 'Vehículos', url: '/vehicles', icon: 'local_shipping' },
+    { title: 'Mantenimientos', url: '/vehicle-maintenance', icon: 'build' }, // ✅ NUEVO
     { title: 'Rutas', url: '/routes', icon: 'alt_route' },
-    { title: 'Combustible', url: '/fuel', icon: 'alt_route' },
+    { title: 'Combustible', url: '/fuel', icon: 'local_gas_station' },
     { title: 'Reportes', url: '/reports', icon: 'bar_chart' },
   ];
 

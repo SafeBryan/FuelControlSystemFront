@@ -1,0 +1,87 @@
+<div class="maintenance-container">
+  <h2>Mantenimientos de Vehículos</h2>
+
+  <div class="actions">
+    <mat-form-field appearance="fill" class="search-bar">
+      <mat-label>Buscar mantenimiento</mat-label>
+      <input
+        matInput
+        [formControl]="searchControl"
+        placeholder="Descripción, proveedor, estado"
+      />
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="addMaintenance()">
+      <mat-icon>add</mat-icon> Nuevo Mantenimiento
+    </button>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    <mat-spinner diameter="40"></mat-spinner>
+  </div>
+
+  <table
+    mat-table
+    [dataSource]="filteredMaintenances"
+    class="mat-elevation-z8"
+    *ngIf="!loading"
+  >
+    <ng-container matColumnDef="vehicleId">
+      <th mat-header-cell *matHeaderCellDef>Vehículo</th>
+      <td mat-cell *matCellDef="let m">{{ m.vehicleId }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef>Descripción</th>
+      <td mat-cell *matCellDef="let m">{{ m.description }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="serviceProvider">
+      <th mat-header-cell *matHeaderCellDef>Proveedor</th>
+      <td mat-cell *matCellDef="let m">
+        {{ m.serviceProvider || "No especificado" }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="startDate">
+      <th mat-header-cell *matHeaderCellDef>Inicio</th>
+      <td mat-cell *matCellDef="let m">
+        {{ m.startDate | date : "mediumDate" }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="endDate">
+      <th mat-header-cell *matHeaderCellDef>Fin</th>
+      <td mat-cell *matCellDef="let m">
+        {{ m.endDate ? (m.endDate | date : "mediumDate") : "En curso" }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="cost">
+      <th mat-header-cell *matHeaderCellDef>Costo</th>
+      <td mat-cell *matCellDef="let m">{{ m.cost | currency : "USD" }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Estado</th>
+      <td mat-cell *matCellDef="let m">
+        {{ m.isCompleted ? "Completado" : "En curso" }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Acciones</th>
+      <td mat-cell *matCellDef="let m">
+        <button mat-icon-button color="accent" (click)="editMaintenance(m)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deleteMaintenance(m)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+</div>

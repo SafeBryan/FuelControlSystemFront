@@ -1,0 +1,43 @@
+<h2>Gestión de Usuarios</h2>
+
+<div class="actions">
+  <mat-form-field appearance="fill" class="search-bar">
+    <mat-label>Buscar usuario</mat-label>
+    <input matInput [formControl]="searchControl" placeholder="Nombre, Email" />
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="addUser()">
+    <mat-icon>add</mat-icon> Nuevo Usuario
+  </button>
+</div>
+
+<table mat-table [dataSource]="filteredUsers" class="mat-elevation-z8">
+  <ng-container matColumnDef="username">
+    <th mat-header-cell *matHeaderCellDef>Usuario</th>
+    <td mat-cell *matCellDef="let user">{{ user.username }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="email">
+    <th mat-header-cell *matHeaderCellDef>Email</th>
+    <td mat-cell *matCellDef="let user">{{ user.email }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="roles">
+    <th mat-header-cell *matHeaderCellDef>Roles</th>
+    <td mat-cell *matCellDef="let user">{{ user.roles.join(", ") }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>Acciones</th>
+    <td mat-cell *matCellDef="let user">
+      <button mat-icon-button color="accent" (click)="editUser(user)">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" (click)="deleteUser(user)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>

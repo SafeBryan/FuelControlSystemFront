@@ -1,0 +1,71 @@
+<h2 mat-dialog-title>
+  {{ data.driver ? "Editar Conductor" : "Nuevo Conductor" }}
+</h2>
+
+<form [formGroup]="driverForm" (ngSubmit)="save()" mat-dialog-content>
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Nombre</mat-label>
+    <input matInput formControlName="firstName" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Apellido</mat-label>
+    <input matInput formControlName="lastName" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>DNI</mat-label>
+    <input matInput formControlName="dni" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Dirección</mat-label>
+    <input matInput formControlName="address" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Teléfono</mat-label>
+    <input matInput formControlName="phone" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Licencia</mat-label>
+    <mat-select formControlName="license" required>
+      <mat-option *ngFor="let l of licenses" [value]="l">{{ l }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Tipo de Maquinaria</mat-label>
+    <mat-select formControlName="machineryType" required>
+      <mat-option *ngFor="let m of machineryTypes" [value]="m">{{
+        m
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Tarifa por Hora ($)</mat-label>
+    <input type="number" matInput formControlName="hourlyRate" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>User ID</mat-label>
+    <input matInput formControlName="userId" required />
+  </mat-form-field>
+
+  <mat-checkbox formControlName="isAvailability">Disponible</mat-checkbox>
+  <mat-checkbox formControlName="isActive">Activo</mat-checkbox>
+
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="cancel()">Cancelar</button>
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="!driverForm.valid"
+      type="submit"
+    >
+      Guardar
+    </button>
+  </mat-dialog-actions>
+</form>

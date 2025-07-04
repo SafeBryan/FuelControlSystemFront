@@ -1,29 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { VehicleService, Vehicle } from '../../core/services/vehicle.service';
 import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { VehicleFormComponent } from '../vehicles/vehicle-form/vehicle-form.component';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatConfirmDialogComponent } from '../../shared/mat-confirm-dialog/mat-confirm-dialog.component';
-
+import { DriverService } from '../../core/services/driver.service';
+import { Driver } from '../../core/models/driver.model';
+import { DriverFormComponent } from '../drivers/driver-form/driver-form.component';
 
 @Component({
-  selector: 'app-vehicles',
+  selector: 'app-drivers',
   standalone: true,
   imports: [
     CommonModule,
     MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
     MatFormFieldModule,
     MatInputModule,
     ReactiveFormsModule,
@@ -33,102 +29,99 @@ import { MatConfirmDialogComponent } from '../../shared/mat-confirm-dialog/mat-c
     MatDialogModule,
     MatSnackBarModule,
   ],
-  templateUrl: './vehicles.component.html',
-  styleUrl: './vehicles.component.scss',
+  templateUrl: './drivers.component.html',
+  styleUrl: './drivers.component.scss',
 })
-export class VehiclesComponent implements OnInit {
+export class DriversComponent implements OnInit {
   displayedColumns: string[] = [
-    'plateNumber',
-    'type',
-    'fuelType',
-    'fuelEfficiency',
-    'brand',
-    'model',
-    'acquisitionDate',
-    'isUnderMaintenance',
+    'firstName',
+    'lastName',
+    'dni',
+    'phone',
+    'license',
+    'machineryType',
+    'isAvailability',
+    'isActive',
     'actions',
   ];
 
-  vehicles: Vehicle[] = [];
-  filteredVehicles: Vehicle[] = [];
+  drivers: Driver[] = [];
+  filteredDrivers: Driver[] = [];
   searchControl = new FormControl('');
   loading = true;
 
   constructor(
-    private vehicleService: VehicleService,
+    private driverService: DriverService,
     private dialog: MatDialog,
     private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
-    this.loadVehicles();
+    this.loadDrivers();
 
     this.searchControl.valueChanges.subscribe((value) => {
-      this.filteredVehicles = this.vehicles.filter((v) =>
-        `${v.plateNumber} ${v.brand} ${v.model}`
-          .toLowerCase()
-          .includes(value?.toLowerCase() || '')
+      const lower = (value || '').toLowerCase();
+      this.filteredDrivers = this.drivers.filter((d) =>
+        `${d.firstName} ${d.lastName} ${d.dni}`.toLowerCase().includes(lower)
       );
     });
   }
 
-  loadVehicles() {
+  loadDrivers() {
     this.loading = true;
-    this.vehicleService.getVehicles().subscribe({
+    this.driverService.getDrivers().subscribe({
       next: (data) => {
-        this.vehicles = data;
-        this.filteredVehicles = data;
+        this.drivers = data;
+        this.filteredDrivers = data;
         this.loading = false;
       },
       error: (err) => {
-        console.error('Error al cargar vehículos:', err);
+        console.error('Error al cargar conductores:', err);
         this.loading = false;
       },
     });
   }
 
-  addVehicle() {
-    const dialogRef = this.dialog.open(VehicleFormComponent, {
+  addDriver() {
+    const dialogRef = this.dialog.open(DriverFormComponent, {
       width: '500px',
       data: {},
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.vehicleService.createVehicle(result).subscribe({
+        this.driverService.createDriver(result).subscribe({
           next: () => {
-            this.snackBar.open('Vehículo agregado correctamente', 'Cerrar', {
+            this.snackBar.open('Conductor creado', 'Cerrar', {
               duration: 3000,
             });
-            this.loadVehicles();
+            this.loadDrivers();
           },
           error: () => {
-            this.snackBar.open('Error al agregar vehículo', 'Cerrar', {
-              duration: 3000,
-            });
+            this.snackBar.open('Error al crear', 'Cerrar', { duration: 3000 });
           },
         });
       }
     });
   }
 
-  editVehicle(vehicle: Vehicle) {
-    const dialogRef = this.dialog.open(VehicleFormComponent, {
+  editDriver(driver: Driver) {
+    const dialogRef = this.dialog.open(DriverFormComponent, {
       width: '500px',
-      data: { vehicle },
+      data: { driver },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.vehicleService.updateVehicle(vehicle.id, result).subscribe({
+        this.driverService.updateDriver(driver.id!, result).subscribe({
           next: () => {
-            this.snackBar.open('Vehículo actualizado correctamente', 'Cerrar', {
+            this.snackBar.open('Conductor actualizado', 'Cerrar', {
               duration: 3000,
             });
-            this.loadVehicles();
+            this.loadDrivers();
           },
           error: () => {
-            this.snackBar.open('Error al actualizar vehículo', 'Cerrar', {
+            this.snackBar.open('Error al actualizar', 'Cerrar', {
               duration: 3000,
             });
           },
@@ -137,26 +130,26 @@ export class VehiclesComponent implements OnInit {
     });
   }
 
-  deleteVehicle(vehicle: Vehicle) {
+  deleteDriver(driver: Driver) {
     const dialogRef = this.dialog.open(MatConfirmDialogComponent, {
       width: '350px',
       data: {
         title: 'Confirmar eliminación',
-        message: `¿Estás seguro de eliminar el vehículo ${vehicle.plateNumber}?`,
+        message: `¿Deseas eliminar al conductor: ${driver.firstName} ${driver.lastName}?`,
       },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.vehicleService.deleteVehicle(vehicle.id).subscribe({
+        this.driverService.deleteDriver(driver.id!).subscribe({
           next: () => {
-            this.snackBar.open('Vehículo eliminado correctamente', 'Cerrar', {
+            this.snackBar.open('Conductor eliminado', 'Cerrar', {
               duration: 3000,
             });
-            this.loadVehicles();
+            this.loadDrivers();
           },
           error: () => {
-            this.snackBar.open('Error al eliminar vehículo', 'Cerrar', {
+            this.snackBar.open('Error al eliminar', 'Cerrar', {
               duration: 3000,
             });
           },

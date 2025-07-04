@@ -16,6 +16,14 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'users',
+        loadComponent: () =>
+          import('./features/users/users.component').then(
+            (m) => m.UsersComponent
+          ),
+      },
+
+      {
         path: 'vehicles',
         loadComponent: () =>
           import('./features/vehicles/vehicles.component').then(
@@ -28,6 +36,13 @@ export const routes: Routes = [
           import(
             './features/vehicles/vehicle-maintenance/vehicle-maintenance.component'
           ).then((m) => m.VehicleMaintenanceComponent),
+      },
+      {
+        path: 'drivers',
+        loadComponent: () =>
+          import('./features/drivers/drivers.component').then(
+            (m) => m.DriversComponent
+          ),
       },
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
     ],

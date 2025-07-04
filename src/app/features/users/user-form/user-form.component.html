@@ -1,0 +1,41 @@
+<h2 mat-dialog-title>
+  {{ data.user ? "Editar Usuario" : "Nuevo Usuario" }}
+</h2>
+
+<form [formGroup]="userForm" (ngSubmit)="save()" mat-dialog-content>
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Usuario</mat-label>
+    <input matInput formControlName="username" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width" *ngIf="!data.user">
+    <mat-label>Contraseña</mat-label>
+    <input matInput type="password" formControlName="password" required />
+  </mat-form-field>
+
+  <label class="roles-label">Roles:</label>
+  <div formArrayName="roles" class="roles-container">
+    <div *ngFor="let role of roles; let i = index">
+      <mat-checkbox [formControlName]="i">
+        {{ roleLabels[role] }}
+      </mat-checkbox>
+    </div>
+  </div>
+</form>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Cancelar</button>
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="!userForm.valid"
+    type="submit"
+  >
+    Guardar
+  </button>
+</mat-dialog-actions>

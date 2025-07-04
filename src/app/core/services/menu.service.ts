@@ -14,7 +14,8 @@ export class MenuService {
   private adminMenu: IMenu[] = [
     { title: 'Dashboard', url: '/dashboard', icon: 'dashboard' },
     { title: 'Vehículos', url: '/vehicles', icon: 'local_shipping' },
-    { title: 'Mantenimientos', url: '/vehicle-maintenance', icon: 'build' }, // ✅ NUEVO
+    { title: 'Usuarios', url: '/users', icon: 'group' },
+    { title: 'Mantenimientos', url: '/vehicle-maintenance', icon: 'build' },
     { title: 'Conductores', url: '/drivers', icon: 'person' },
     { title: 'Rutas', url: '/routes', icon: 'alt_route' },
     {

@@ -14,7 +14,9 @@ import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { Vehicle } from '../../../core/services/vehicle.service';
+import { VehicleService } from '../../../core/services/vehicle.service';
+import { Vehicle } from '../../../core/models/vehicle';
+
 
 @Component({
   selector: 'app-vehicle-form',
@@ -46,6 +48,8 @@ export class VehicleFormComponent {
         data.vehicle?.fuelEfficiency || '',
         [Validators.required, Validators.min(0)],
       ],
+      averageFuelEfficiency: [data.vehicle?.averageFuelEfficiency || '', [Validators.required, Validators.min(0)]],
+      averageSpeedKmPerHour: [data.vehicle?.averageSpeedKmPerHour || '', [Validators.required, Validators.min(0)]],
       brand: [data.vehicle?.brand || '', Validators.required],
       model: [data.vehicle?.model || '', Validators.required],
       acquisitionDate: [
@@ -57,6 +61,7 @@ export class VehicleFormComponent {
         [Validators.required, Validators.min(0)],
       ],
       documentNumber: [data.vehicle?.documentNumber || '', Validators.required],
+      isUnderMaintenance: [data.vehicle?.isUnderMaintenance || false, Validators.required],
     });
   }
 

@@ -1,0 +1,30 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div>
+    <label>Nombre:</label>
+    <input formControlName="name" />
+    <div *ngIf="form.get('name')?.invalid && form.get('name')?.touched" class="error">El nombre es obligatorio</div>
+  </div>
+  <div>
+    <label>Origen:</label>
+    <input formControlName="origin" />
+    <div *ngIf="form.get('origin')?.invalid && form.get('origin')?.touched" class="error">El origen es obligatorio</div>
+  </div>
+  <div>
+    <label>Destino:</label>
+    <input formControlName="destination" />
+    <div *ngIf="form.get('destination')?.invalid && form.get('destination')?.touched" class="error">El destino es obligatorio</div>
+  </div>
+  <div>
+    <label>Distancia (km):</label>
+    <input type="number" formControlName="distance" />
+    <div *ngIf="form.get('distance')?.hasError('required') && form.get('distance')?.touched" class="error">La distancia es obligatoria</div>
+    <div *ngIf="form.get('distance')?.hasError('min') && form.get('distance')?.touched" class="error">Debe ser un valor positivo</div>
+  </div>
+  <div>
+    <label>
+      <input type="checkbox" formControlName="isActive" /> Activo
+    </label>
+  </div>
+  <button type="submit" [disabled]="form.invalid">Guardar</button>
+  <button type="button" (click)="onCancel()">Cancelar</button>
+</form> 

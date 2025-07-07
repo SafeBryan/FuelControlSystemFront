@@ -1,0 +1,35 @@
+<div>
+  <label>Ruta ID:</label>
+  <input [(ngModel)]="routeId" />
+  <button (click)="buscar()">Buscar</button>
+</div>
+
+<div *ngIf="loading">Cargando reportes...</div>
+<div *ngIf="error">{{ error }}</div>
+<table *ngIf="!loading && !error && reports.length">
+  <thead>
+    <tr>
+      <th>Viaje</th>
+      <th>Vehículo</th>
+      <th>Conductor</th>
+      <th>Fecha Inicio</th>
+      <th>Fecha Fin</th>
+      <th>Combustible</th>
+      <th>Distancia</th>
+      <th>Eficiencia</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let r of reports">
+      <td>{{ r.tripId }}</td>
+      <td>{{ r.vehicleId }}</td>
+      <td>{{ r.driverId }}</td>
+      <td>{{ r.startDate | date: 'short' }}</td>
+      <td>{{ r.endDate | date: 'short' }}</td>
+      <td>{{ r.fuelConsumed }}</td>
+      <td>{{ r.distance }}</td>
+      <td>{{ r.efficiency }}</td>
+    </tr>
+  </tbody>
+</table>
+<div *ngIf="!loading && !error && !reports.length">No hay reportes para esta ruta.</div> 

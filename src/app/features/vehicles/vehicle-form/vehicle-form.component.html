@@ -6,49 +6,107 @@
   <mat-form-field appearance="fill" class="full-width">
     <mat-label>Placa</mat-label>
     <input matInput formControlName="plateNumber" />
+    <mat-error *ngIf="vehicleForm.get('plateNumber')?.hasError('required')">
+      La placa es obligatoria
+    </mat-error>
   </mat-form-field>
 
   <mat-form-field appearance="fill" class="full-width">
     <mat-label>Tipo</mat-label>
     <input matInput formControlName="type" />
+    <mat-error *ngIf="vehicleForm.get('type')?.hasError('required')">
+      El tipo es obligatorio
+    </mat-error>
   </mat-form-field>
 
   <mat-form-field appearance="fill" class="full-width">
     <mat-label>Tipo de Combustible</mat-label>
     <input matInput formControlName="fuelType" />
+    <mat-error *ngIf="vehicleForm.get('fuelType')?.hasError('required')">
+      El tipo de combustible es obligatorio
+    </mat-error>
   </mat-form-field>
 
   <mat-form-field appearance="fill" class="full-width">
     <mat-label>Eficiencia de Combustible (km/l)</mat-label>
     <input matInput type="number" formControlName="fuelEfficiency" />
+    <mat-error *ngIf="vehicleForm.get('fuelEfficiency')?.hasError('required')">
+      La eficiencia es obligatoria
+    </mat-error>
+    <mat-error *ngIf="vehicleForm.get('fuelEfficiency')?.hasError('min')">
+      Debe ser un valor positivo
+    </mat-error>
   </mat-form-field>
 
   <mat-form-field appearance="fill" class="full-width">
     <mat-label>Marca</mat-label>
     <input matInput formControlName="brand" />
+    <mat-error *ngIf="vehicleForm.get('brand')?.hasError('required')">
+      La marca es obligatoria
+    </mat-error>
   </mat-form-field>
 
   <mat-form-field appearance="fill" class="full-width">
     <mat-label>Modelo</mat-label>
     <input matInput formControlName="model" />
+    <mat-error *ngIf="vehicleForm.get('model')?.hasError('required')">
+      El modelo es obligatorio
+    </mat-error>
   </mat-form-field>
 
   <mat-form-field appearance="fill" class="full-width">
     <mat-label>Fecha de Adquisición</mat-label>
     <input matInput type="date" formControlName="acquisitionDate" />
+    <mat-error *ngIf="vehicleForm.get('acquisitionDate')?.hasError('required')">
+      La fecha de adquisición es obligatoria
+    </mat-error>
   </mat-form-field>
 
   <mat-form-field appearance="fill" class="full-width">
     <mat-label>Precio de Compra</mat-label>
     <input matInput type="number" formControlName="purchasePrice" />
+    <mat-error *ngIf="vehicleForm.get('purchasePrice')?.hasError('required')">
+      El precio de compra es obligatorio
+    </mat-error>
+    <mat-error *ngIf="vehicleForm.get('purchasePrice')?.hasError('min')">
+      Debe ser un valor positivo
+    </mat-error>
   </mat-form-field>
 
   <mat-form-field appearance="fill" class="full-width">
     <mat-label>Número de Documento</mat-label>
     <input matInput formControlName="documentNumber" />
+    <mat-error *ngIf="vehicleForm.get('documentNumber')?.hasError('required')">
+      El número de documento es obligatorio
+    </mat-error>
   </mat-form-field>
-</form>
 
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Eficiencia Promedio (km/l)</mat-label>
+    <input matInput type="number" formControlName="averageFuelEfficiency" />
+    <mat-error *ngIf="vehicleForm.get('averageFuelEfficiency')?.hasError('required')">
+      La eficiencia promedio es obligatoria
+    </mat-error>
+    <mat-error *ngIf="vehicleForm.get('averageFuelEfficiency')?.hasError('min')">
+      Debe ser un valor positivo
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Velocidad Promedio (km/h)</mat-label>
+    <input matInput type="number" formControlName="averageSpeedKmPerHour" />
+    <mat-error *ngIf="vehicleForm.get('averageSpeedKmPerHour')?.hasError('required')">
+      La velocidad promedio es obligatoria
+    </mat-error>
+    <mat-error *ngIf="vehicleForm.get('averageSpeedKmPerHour')?.hasError('min')">
+      Debe ser un valor positivo
+    </mat-error>
+  </mat-form-field>
+
+  <mat-checkbox formControlName="isUnderMaintenance">
+    ¿Está en mantenimiento?
+  </mat-checkbox>
+</form>
 <mat-dialog-actions align="end">
   <button mat-button (click)="cancel()">Cancelar</button>
   <button
@@ -60,3 +118,4 @@
     Guardar
   </button>
 </mat-dialog-actions>
+

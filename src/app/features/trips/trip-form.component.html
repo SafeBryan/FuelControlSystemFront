@@ -1,0 +1,44 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div>
+    <label>Vehículo:</label>
+    <input formControlName="vehicleId" />
+    <div *ngIf="form.get('vehicleId')?.invalid && form.get('vehicleId')?.touched" class="error">El vehículo es obligatorio</div>
+  </div>
+  <div>
+    <label>Conductor:</label>
+    <input formControlName="driverId" />
+    <div *ngIf="form.get('driverId')?.invalid && form.get('driverId')?.touched" class="error">El conductor es obligatorio</div>
+  </div>
+  <div>
+    <label>Ruta:</label>
+    <input formControlName="routeId" />
+    <div *ngIf="form.get('routeId')?.invalid && form.get('routeId')?.touched" class="error">La ruta es obligatoria</div>
+  </div>
+  <div>
+    <label>Fecha Inicio:</label>
+    <input type="datetime-local" formControlName="startDate" />
+    <div *ngIf="form.get('startDate')?.invalid && form.get('startDate')?.touched" class="error">La fecha de inicio es obligatoria</div>
+  </div>
+  <div>
+    <label>Fecha Fin:</label>
+    <input type="datetime-local" formControlName="endDate" />
+    <div *ngIf="form.get('endDate')?.invalid && form.get('endDate')?.touched" class="error">La fecha de fin es obligatoria</div>
+  </div>
+  <div>
+    <label>Estado:</label>
+    <input formControlName="status" />
+    <div *ngIf="form.get('status')?.invalid && form.get('status')?.touched" class="error">El estado es obligatorio</div>
+  </div>
+  <div>
+    <label>Combustible consumido:</label>
+    <input type="number" formControlName="fuelConsumed" />
+    <div *ngIf="form.get('fuelConsumed')?.hasError('required') && form.get('fuelConsumed')?.touched" class="error">El combustible es obligatorio</div>
+    <div *ngIf="form.get('fuelConsumed')?.hasError('min') && form.get('fuelConsumed')?.touched" class="error">Debe ser un valor positivo</div>
+  </div>
+  <div>
+    <label>Notas:</label>
+    <textarea formControlName="notes"></textarea>
+  </div>
+  <button type="submit" [disabled]="form.invalid">Guardar</button>
+  <button type="button" (click)="onCancel()">Cancelar</button>
+</form> 

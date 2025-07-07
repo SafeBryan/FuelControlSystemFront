@@ -1,0 +1,35 @@
+<app-vehicle-maintenance-form
+  *ngIf="showForm"
+  [maintenance]="selectedMaintenance"
+  [vehicleId]="vehicleId"
+  (save)="onFormSave($event)"
+  (cancel)="onFormCancel()"
+></app-vehicle-maintenance-form>
+
+<div *ngIf="loading">Cargando mantenimientos...</div>
+<div *ngIf="error">{{ error }}</div>
+<table *ngIf="!loading && !error">
+  <thead>
+    <tr>
+      <th>Descripción</th>
+      <th>Fecha</th>
+      <th>Costo</th>
+      <th>Completado</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let m of maintenances">
+      <td>{{ m.description }}</td>
+      <td>{{ m.date | date: 'mediumDate' }}</td>
+      <td>{{ m.cost | currency }}</td>
+      <td>{{ m.completed ? 'Sí' : 'No' }}</td>
+      <td>
+        <!-- Botones para editar/eliminar -->
+        <button (click)="onEdit(m)">Editar</button>
+        <button (click)="onDelete(m)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<button (click)="onCreate()">Agregar mantenimiento</button> 

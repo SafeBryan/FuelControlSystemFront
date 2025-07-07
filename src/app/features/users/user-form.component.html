@@ -1,0 +1,46 @@
+<p>Formulario de usuario (alta/edición)</p>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div>
+    <label>Usuario:</label>
+    <input formControlName="username" />
+    <div *ngIf="form.get('username')?.touched && form.get('username')?.invalid" class="error">
+      El usuario es obligatorio.
+    </div>
+  </div>
+  <div>
+    <label>Email:</label>
+    <input formControlName="email" type="email" />
+    <div *ngIf="form.get('email')?.touched && form.get('email')?.hasError('required')" class="error">
+      El email es obligatorio.
+    </div>
+    <div *ngIf="form.get('email')?.touched && form.get('email')?.hasError('email')" class="error">
+      El email no es válido.
+    </div>
+  </div>
+  <!-- <div>
+    <label>Activo:</label>
+    <input type="checkbox" formControlName="isActive" />
+  </div> -->
+  <div>
+    <label>Contraseña:</label>
+    <input type="password" formControlName="password" />
+    <div *ngIf="form.get('password')?.touched && form.get('password')?.invalid" class="error">
+      La contraseña es obligatoria.
+    </div>
+  </div>
+  <div>
+    <label>Roles:</label>
+    <select formControlName="roles" multiple>
+      <option [value]="0">Admin</option>
+      <option [value]="1">Supervisor</option>
+      <option [value]="2">Operador</option>
+    </select>
+    <div *ngIf="form.get('roles')?.touched && form.get('roles')?.invalid" class="error">
+      Debe seleccionar al menos un rol.
+    </div>
+  </div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+  <button type="submit" [disabled]="form.invalid || loading">Guardar</button>
+  <button type="button" (click)="onCancel()">Cancelar</button>
+</form> 

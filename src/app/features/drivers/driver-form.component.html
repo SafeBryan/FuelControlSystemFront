@@ -1,0 +1,19 @@
+<p>Formulario de conductor (alta/edición)</p>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div>
+    <label>Nombre:</label>
+    <input formControlName="name" />
+  </div>
+  <div>
+    <label>Licencia:</label>
+    <input formControlName="licenseNumber" />
+  </div>
+  <div>
+    <label>Activo:</label>
+    <input type="checkbox" formControlName="isActive" />
+  </div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+  <button type="submit" [disabled]="form.invalid || loading">Guardar</button>
+  <button type="button" (click)="onCancel()">Cancelar</button>
+</form> 

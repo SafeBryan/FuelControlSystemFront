@@ -1,0 +1,37 @@
+<app-driver-form *ngIf="showForm" [driver]="selectedDriver" (close)="onFormClose($event)"></app-driver-form>
+
+<button (click)="onCreate()">Crear conductor</button>
+
+<div *ngIf="loading">Cargando conductores...</div>
+<div *ngIf="error" class="error">{{ error }}</div>
+<table>
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Apellido</th>
+      <th>DNI</th>
+      <th>Licencia</th>
+      <th>Activo</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let driver of drivers">
+      <td>{{ driver.firstName }}</td>
+      <td>{{ driver.lastName }}</td>
+      <td>{{ driver.dni }}</td>
+      <td>{{ driver.license }}</td>
+      <td>{{ driver.isActive ? 'Sí' : 'No' }}</td>
+      <td>
+        <button (click)="onEdit(driver)">Editar</button>
+        <button (click)="onDelete(driver)">Eliminar</button>
+        <button (click)="onAssignUser(driver)">Asignar usuario</button>
+      </td>
+    </tr>
+    <tr *ngIf="drivers.length === 0 && !loading">
+      <td colspan="4" style="text-align:center; color:#888;">No hay conductores registrados.</td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- <app-assign-user *ngIf="showAssignUser" [driver]="driverForUser" (close)="onAssignUserClose($event)"></app-assign-user>  -->

@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  authApiUrl: 'https://localhost:7214',
-  vehicleApiUrl: 'https://localhost:7205', 
+  authApiUrl: 'http://localhost:7214',
+  vehicleApiUrl: 'http://localhost:7205', 
 
 };

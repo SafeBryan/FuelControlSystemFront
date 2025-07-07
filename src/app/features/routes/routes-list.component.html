@@ -1,0 +1,35 @@
+<app-route-form
+  *ngIf="showForm"
+  [route]="selectedRoute"
+  (save)="onFormSave($event)"
+  (cancel)="onFormCancel()"
+></app-route-form>
+
+<div *ngIf="loading">Cargando rutas...</div>
+<div *ngIf="error">{{ error }}</div>
+<table *ngIf="!loading && !error">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Origen</th>
+      <th>Destino</th>
+      <th>Distancia (km)</th>
+      <th>Activo</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let route of routes">
+      <td>{{ route.name }}</td>
+      <td>{{ route.origin }}</td>
+      <td>{{ route.destination }}</td>
+      <td>{{ route.distance }}</td>
+      <td>{{ route.isActive ? 'Sí' : 'No' }}</td>
+      <td>
+        <button (click)="onEdit(route)">Editar</button>
+        <button (click)="onDelete(route)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<button (click)="onCreate()">Crear ruta</button> 

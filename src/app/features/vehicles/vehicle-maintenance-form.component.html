@@ -1,0 +1,25 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div>
+    <label>Descripción:</label>
+    <input formControlName="description" />
+    <div *ngIf="form.get('description')?.invalid && form.get('description')?.touched" class="error">La descripción es obligatoria</div>
+  </div>
+  <div>
+    <label>Fecha:</label>
+    <input type="date" formControlName="date" />
+    <div *ngIf="form.get('date')?.invalid && form.get('date')?.touched" class="error">La fecha es obligatoria</div>
+  </div>
+  <div>
+    <label>Costo:</label>
+    <input type="number" formControlName="cost" />
+    <div *ngIf="form.get('cost')?.hasError('required') && form.get('cost')?.touched" class="error">El costo es obligatorio</div>
+    <div *ngIf="form.get('cost')?.hasError('min') && form.get('cost')?.touched" class="error">Debe ser un valor positivo</div>
+  </div>
+  <div>
+    <label>
+      <input type="checkbox" formControlName="completed" /> Completado
+    </label>
+  </div>
+  <button type="submit" [disabled]="form.invalid">Guardar</button>
+  <button type="button" (click)="onCancel()">Cancelar</button>
+</form>

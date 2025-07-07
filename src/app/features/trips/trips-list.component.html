@@ -1,0 +1,39 @@
+<app-trip-form
+  *ngIf="showForm"
+  [trip]="selectedTrip"
+  (save)="onFormSave($event)"
+  (cancel)="onFormCancel()"
+></app-trip-form>
+
+<div *ngIf="loading">Cargando viajes...</div>
+<div *ngIf="error">{{ error }}</div>
+<table *ngIf="!loading && !error">
+  <thead>
+    <tr>
+      <th>Vehículo</th>
+      <th>Conductor</th>
+      <th>Ruta</th>
+      <th>Fecha Inicio</th>
+      <th>Fecha Fin</th>
+      <th>Estado</th>
+      <th>Combustible</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let trip of trips">
+      <td>{{ trip.vehicleId }}</td>
+      <td>{{ trip.driverId }}</td>
+      <td>{{ trip.routeId }}</td>
+      <td>{{ trip.startDate | date: 'short' }}</td>
+      <td>{{ trip.endDate | date: 'short' }}</td>
+      <td>{{ trip.status }}</td>
+      <td>{{ trip.fuelConsumed }}</td>
+      <td>
+        <button (click)="onEdit(trip)">Editar</button>
+        <button (click)="onDelete(trip)">Eliminar</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<button (click)="onCreate()">Crear viaje</button> 

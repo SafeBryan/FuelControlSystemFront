@@ -75,6 +75,16 @@
       </td>
     </ng-container>
 
+    <ng-container matColumnDef="averageFuelEfficiency">
+      <th mat-header-cell *matHeaderCellDef>Eficiencia Promedio</th>
+      <td mat-cell *matCellDef="let vehicle">{{ vehicle.averageFuelEfficiency }} km/l</td>
+    </ng-container>
+
+    <ng-container matColumnDef="averageSpeedKmPerHour">
+      <th mat-header-cell *matHeaderCellDef>Velocidad Promedio (km/h)</th>
+      <td mat-cell *matCellDef="let vehicle">{{ vehicle.averageSpeedKmPerHour }}</td>
+    </ng-container>
+
     <!-- ✅ Nueva columna de acciones -->
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef>Acciones</th>
@@ -84,6 +94,9 @@
         </button>
         <button mat-icon-button color="warn" (click)="deleteVehicle(vehicle)">
           <mat-icon>delete</mat-icon>
+        </button>
+        <button mat-icon-button color="primary" (click)="openMaintenances(vehicle)">
+          <mat-icon>build</mat-icon>
         </button>
       </td>
     </ng-container>

@@ -1,0 +1,30 @@
+<!-- <app-user-roles *ngIf="showRoles" [user]="userForRoles" (close)="onRolesClose($event)"></app-user-roles> -->
+
+<button (click)="onCreate()">Crear usuario</button>
+
+<app-user-form *ngIf="showForm" [user]="selectedUser" (close)="onFormClose($event)"></app-user-form>
+
+<div *ngIf="loading">Cargando usuarios...</div>
+<div *ngIf="error">{{ error }}</div>
+<table *ngIf="!loading && !error">
+  <thead>
+    <tr>
+      <th>Usuario</th>
+      <th>Email</th>
+      <th>Roles</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <td>{{ user.username }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.roles.join(', ') }}</td>
+      <td>
+        <button (click)="onEdit(user)">Editar</button>
+        <button (click)="onDelete(user)">Eliminar</button>
+        <!-- <button (click)="onAssignRoles(user)">Asignar roles</button> -->
+      </td>
+    </tr>
+  </tbody>
+</table> 

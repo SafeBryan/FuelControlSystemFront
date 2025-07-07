@@ -13,11 +13,14 @@ export interface IMenu {
 export class MenuService {
   private adminMenu: IMenu[] = [
     { title: 'Dashboard', url: '/dashboard', icon: 'dashboard' },
+    { title: 'Usuarios', url: '/users', icon: 'group' },
     { title: 'Vehículos', url: '/vehicles', icon: 'local_shipping' },
     { title: 'Conductores', url: '/drivers', icon: 'person' },
     { title: 'Rutas', url: '/routes', icon: 'alt_route' },
+    { title: 'Viajes', url: '/trips', icon: 'map' },
+    { title: 'Reportes', url: '/reports', icon: 'bar_chart' },
     {
-      title: 'Consumo de Combustible',
+      title: 'Combustible',
       url: '/fuel',
       icon: 'local_gas_station',
     },
@@ -49,6 +52,7 @@ export class MenuService {
 
   private operadorMenu: IMenu[] = [
     { title: 'Dashboard', url: '/dashboard', icon: 'dashboard' },
+    { title: 'Reportes', url: '/reports', icon: 'bar_chart' },
     {
       title: 'Consumo de Combustible',
       url: '/fuel',

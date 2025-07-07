@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { VehicleService, Vehicle } from '../../core/services/vehicle.service';
+import { VehicleService } from '../../core/services/vehicle.service';
+import { Vehicle } from '../../core/models/vehicle';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
@@ -14,6 +15,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { VehicleFormComponent } from '../vehicles/vehicle-form/vehicle-form.component';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatConfirmDialogComponent } from '../../shared/mat-confirm-dialog/mat-confirm-dialog.component'; // Si usas un confirm dialog
+import { VehicleMaintenanceListComponent } from './vehicle-maintenance-list.component';
 
 @Component({
   selector: 'app-vehicles',
@@ -31,6 +33,7 @@ import { MatConfirmDialogComponent } from '../../shared/mat-confirm-dialog/mat-c
     MatProgressSpinnerModule,
     MatDialogModule,
     MatSnackBarModule,
+    //VehicleMaintenanceListComponent,
   ],
   templateUrl: './vehicles.component.html',
   styleUrl: './vehicles.component.scss',
@@ -41,6 +44,8 @@ export class VehiclesComponent implements OnInit {
     'type',
     'fuelType',
     'fuelEfficiency',
+    'averageFuelEfficiency',
+    'averageSpeedKmPerHour',
     'brand',
     'model',
     'acquisitionDate',
@@ -119,7 +124,7 @@ export class VehiclesComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.vehicleService.updateVehicle(vehicle.id, result).subscribe({
+        this.vehicleService.updateVehicle(vehicle.id??'', result).subscribe({
           next: () => {
             this.snackBar.open('Vehículo actualizado correctamente', 'Cerrar', {
               duration: 3000,
@@ -140,7 +145,7 @@ export class VehiclesComponent implements OnInit {
     if (
       confirm(`¿Estás seguro de eliminar el vehículo ${vehicle.plateNumber}?`)
     ) {
-      this.vehicleService.deleteVehicle(vehicle.id).subscribe({
+      this.vehicleService.deleteVehicle(vehicle.id??'').subscribe({
         next: () => {
           this.snackBar.open('Vehículo eliminado correctamente', 'Cerrar', {
             duration: 3000,
@@ -154,5 +159,12 @@ export class VehiclesComponent implements OnInit {
         },
       });
     }
+  }
+
+  openMaintenances(vehicle: Vehicle) {
+    this.dialog.open(VehicleMaintenanceListComponent, {
+      width: '700px',
+      data: { vehicleId: vehicle.id }
+    });
   }
 }

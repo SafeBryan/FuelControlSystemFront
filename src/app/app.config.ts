@@ -16,7 +16,7 @@ import {
 } from '@angular/common/http';
 import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
-import { AuthService } from './core/services/auth.service';
+//import { AuthService } from './core/services/auth.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
